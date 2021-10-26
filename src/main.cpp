@@ -12,10 +12,13 @@ void init() {
     glEnable(GL_LINE_SMOOTH);
 }
 
-void drawCeiling() {
+void drawLattice() {
+    glColor3d(0.2, 0.2, 0.2);
     glBegin(GL_LINES);
-    glVertex2d(-1.0, 1.0);
-    glVertex2d(1.0, 1.0);
+    glVertex2d(-1.0, 0.0);
+    glVertex2d(1.0, 0.0);
+    glVertex2d(0.0, -1.0);
+    glVertex2d(0.0, 1.0);
     glEnd();
 }
 
@@ -23,14 +26,14 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     glLoadIdentity();
-    glColor3d(1, 1, 1);
 
-    drawCeiling();
+    drawLattice();
 
     glBegin(GL_LINES);
 
-    glVertex2d(0.0, 1.0);
+    glColor3d(1, 1, 1);
     glVertex2d(0.0, 0.0);
+    glVertex2d(0.5, -0.5);
 
     glEnd();
 
