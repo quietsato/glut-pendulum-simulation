@@ -1,3 +1,5 @@
+#pragma once
+
 #include <cmath>
 
 double omega_dot1(double g, double m1, double m2, double l1, double l2,
