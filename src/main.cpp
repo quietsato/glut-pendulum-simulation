@@ -24,6 +24,8 @@ void drawLattice() {
     glEnd();
 }
 
+double t = 0;
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -35,7 +37,8 @@ void display() {
 
     glColor3d(1, 1, 1);
     glVertex2d(0.0, 0.0);
-    glVertex2d(0.5, -0.5);
+    glVertex2d(t, -t);
+    t += 0.001;
 
     glEnd();
 
@@ -60,6 +63,10 @@ void reshape(int width, int height) {
     gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 }
 
+void idle() {
+    glutPostRedisplay();
+}
+
 int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
 
@@ -69,6 +76,7 @@ int main(int argc, char *argv[]) {
 
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
+    glutIdleFunc(idle);
 
     init();
 
