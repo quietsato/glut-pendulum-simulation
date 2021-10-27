@@ -96,7 +96,7 @@ void display() {
     glVertex2d(l1 * sin(theta1), -l1 * cos(theta1));
     glVertex2d(l1 * sin(theta1), -l1 * cos(theta1));
     glVertex2d(l1 * sin(theta1) + l2 * sin(theta2),
-               -l1 * cos(theta1) - l2 * sin(theta2));
+               -l1 * cos(theta1) - l2 * cos(theta2));
 
     glEnd();
 
