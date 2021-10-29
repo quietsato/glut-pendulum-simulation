@@ -1,16 +1,14 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.10.3)
 project(glut_pendulum_simulation CXX)
 
 set (CMAKE_CXX_STANDARD 11)
+
+add_executable(pendulum.out ./src/main.cpp)
 
 if (APPLE)
     # macOS
     set(CMAKE_CXX_FLAGS "-framework GLUT -framework OpenGL")
 else ()
-    # TODO:
-    # Linux or so on
-    # set(CMAKE_CXX_FLAGS "") 
+    # Linux
+    target_link_libraries(pendulum.out glut GL GLU m)
 endif ()
-
-
-add_executable(pendulum.out ./src/main.cpp)
