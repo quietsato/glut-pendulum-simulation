@@ -12,8 +12,8 @@ double omega_dot1(double g, double m1, double m2, double l1, double l2,
 }
 
 double omega_dot2(double g, double m1, double m2, double l1, double l2,
-                  double theta1, double theta2, double omega_dot1) {
-    return ((m2 * l1 * omega_dot1 * sin(theta1 - theta2)) -
+                  double theta1, double theta2, double omega1, double omega_dot1) {
+    return ((m2 * l1 * omega1 * omega1 * sin(theta1 - theta2)) -
             (m2 * l1 * omega_dot1 * cos(theta1 - theta2) -
              (m2 * g * sin(theta2)))) /
            (m2 * l2);

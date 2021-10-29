@@ -13,7 +13,7 @@ double g = 9.8;
 double m1 = 1.0;
 double l1 = 0.5;
 double m2 = 1.0;
-double l2 = 0.2;
+double l2 = 0.3;
 
 void init() {
     glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -30,9 +30,9 @@ void drawLattice() {
     glEnd();
 }
 
-double h = 0.001;
+double h = 0.005;
 
-double theta1 = M_PI / 6;
+double theta1 = 2 * M_PI / 3;
 double omega1 = 0;
 double theta2 = M_PI / 3;
 double omega2 = 0;
@@ -50,7 +50,7 @@ void display() {
     double k1_omega_dot1 =
         omega_dot1(g, m1, m2, l1, l2, theta1, theta2, omega2);
     double k1_omega_dot2 =
-        omega_dot2(g, m1, m2, l1, l2, theta1, theta2, k1_omega_dot1);
+        omega_dot2(g, m1, m2, l1, l2, theta1, theta2, omega1, k1_omega_dot1);
     double k1_omega1 = h * k1_omega_dot1;
     double k1_omega2 = h * k1_omega_dot2;
 
@@ -60,7 +60,7 @@ void display() {
         omega_dot1(g, m1, m2, l1, l2, theta1 + k1_theta1 / 2,
                    theta2 + k1_theta2 / 2, omega2 + k1_omega2 / 2);
     double k2_omega_dot2 = omega_dot2(g, m1, m2, l1, l2, theta1 + k1_theta1 / 2,
-                                      theta2 + k1_theta2 / 2, k2_omega_dot1);
+                                      theta2 + k1_theta2 / 2, omega1 + k1_omega1 / 2, k2_omega_dot1);
     double k2_omega1 = h * k2_omega_dot1;
     double k2_omega2 = h * k2_omega_dot2;
 
@@ -70,7 +70,7 @@ void display() {
         omega_dot1(g, m1, m2, l1, l2, theta1 + k2_theta1 / 2,
                    theta2 + k2_theta2 / 2, omega2 + k2_omega2 / 2);
     double k3_omega_dot2 = omega_dot2(g, m1, m2, l1, l2, theta1 + k2_theta1 / 2,
-                                      theta2 + k2_theta2 / 2, k3_omega_dot1);
+                                      theta2 + k2_theta2 / 2, omega1 + k2_omega1 / 2, k3_omega_dot1);
     double k3_omega1 = h * k3_omega_dot1;
     double k3_omega2 = h * k3_omega_dot2;
 
@@ -79,7 +79,7 @@ void display() {
     double k4_omega_dot1 = omega_dot1(g, m1, m2, l1, l2, theta1 + k3_theta1,
                                       theta2 + k3_theta2, omega2 + k3_omega2);
     double k4_omega_dot2 = omega_dot2(g, m1, m2, l1, l2, theta1 + k3_theta1,
-                                      theta2 + k3_theta2, k4_omega_dot1);
+                                      theta2 + k3_theta2, omega1 + k3_omega1, k4_omega_dot1);
     double k4_omega1 = h * k4_omega_dot1;
     double k4_omega2 = h * k4_omega_dot2;
 
@@ -141,8 +141,8 @@ int main(int argc, char *argv[]) {
 
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
-    glutMouseFunc(mouse);
-    // glutIdleFunc(idle);
+    // glutMouseFunc(mouse);
+    glutIdleFunc(idle);
 
     init();
 
