@@ -94,10 +94,10 @@ void display() {
     double k4_omega1 = h * k4_omega_dot1;
     double k4_omega2 = h * k4_omega_dot2;
 
-    theta1 += (k1_theta1 + 2 * k2_theta1 + 2 * k3_theta1 + k4_theta1) / 6.0;
-    omega1 += (k1_omega1 + 2 * k2_omega1 + 2 * k3_omega1 + k4_omega1) / 6.0;
-    theta2 += (k1_theta2 + 2 * k2_theta2 + 2 * k3_theta2 + k4_theta2) / 6.0;
-    omega2 += (k1_omega2 + 2 * k2_omega2 + 2 * k3_omega2 + k4_omega2) / 6.0;
+    theta1 += (k1_theta1 + 2.0 * k2_theta1 + 2.0 * k3_theta1 + k4_theta1) / 6.0;
+    omega1 += (k1_omega1 + 2.0 * k2_omega1 + 2.0 * k3_omega1 + k4_omega1) / 6.0;
+    theta2 += (k1_theta2 + 2.0 * k2_theta2 + 2.0 * k3_theta2 + k4_theta2) / 6.0;
+    omega2 += (k1_omega2 + 2.0 * k2_omega2 + 2.0 * k3_omega2 + k4_omega2) / 6.0;
 
     double x1 = l1 * sin(theta1), y1 = -l1 * cos(theta1);
     double x2 = x1 + l2 * sin(theta2), y2 = y1 - l2 * cos(theta2);
