@@ -3,7 +3,12 @@ project(glut_pendulum_simulation CXX)
 
 set (CMAKE_CXX_STANDARD 11)
 
-add_executable(pendulum.out ./src/main.cpp)
+add_executable(
+    pendulum.out 
+    ./src/main.cpp
+    ./src/pendulum/pendulum.hpp
+    ./src/pendulum/pendulum.cpp
+)
 
 if (APPLE)
     # macOS
