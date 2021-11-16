@@ -10,42 +10,23 @@
 #include <GL/glut.h>
 #endif
 
-DoublePendulum *p1;
-DoublePendulum *p2;
-DoublePendulum *p3;
-DoublePendulum *p4;
+std::vector<DoublePendulum *> p;
 
 void init() {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_LINE_SMOOTH);
 
-    p1 = new DoublePendulum(                                      //
-        /* m1 = */ 1.0, /* m2 = */ 0.5,                           //
-        /* l1 = */ 0.5, /* l2 = */ 0.25,                          //
-        /* theta1 = */ M_PI * 2 / 3, /* theta2 = */ M_PI * 2 / 3, //
-        /* omega1 = */ 0, /* omega2 = */ 0                        //
-    );
-    p2 = new DoublePendulum(                                              //
-        /* m1 = */ 1.0, /* m2 = */ 0.5,                                   //
-        /* l1 = */ 0.5, /* l2 = */ 0.25,                                  //
-        /* theta1 = */ M_PI * 2 / 3 + 0.001, /* theta2 = */ M_PI * 2 / 3, //
-        /* omega1 = */ 0, /* omega2 = */ 0                                //
-    );
-    p2->setPendulumColor(1, 0, 0);
-    p3 = new DoublePendulum(                                               //
-        /* m1 = */ 1.0, /* m2 = */ 0.5,                                    //
-        /* l1 = */ 0.5, /* l2 = */ 0.25,                                   //
-        /* theta1 = */ M_PI * 2 / 3 + 0.0001, /* theta2 = */ M_PI * 2 / 3, //
-        /* omega1 = */ 0, /* omega2 = */ 0                                 //
-    );
-    p3->setPendulumColor(0, 1, 0);
-    p4 = new DoublePendulum(                                                //
-        /* m1 = */ 1.0, /* m2 = */ 0.5,                                     //
-        /* l1 = */ 0.5, /* l2 = */ 0.25,                                    //
-        /* theta1 = */ M_PI * 2 / 3 + 0.00001, /* theta2 = */ M_PI * 2 / 3, //
-        /* omega1 = */ 0, /* omega2 = */ 0                                  //
-    );
-    p4->setPendulumColor(0, 0, 1);
+    for (size_t i = 0; i < 30; i++) {
+        auto pi = new DoublePendulum(                    //
+            /* m1 = */ 1.0, /* m2 = */ 0.5,              //
+            /* l1 = */ 0.5, /* l2 = */ 0.25,             //
+            /* theta1 = */ M_PI * 2 / 3 + (i * 0.00001), //
+            /* theta2 = */ M_PI * 2 / 3 + (i * 0.00001), //
+            /* omega1 = */ 0, /* omega2 = */ 0           //
+        );
+        pi->setIsEnabledLocus(true);
+        p.push_back(pi);
+    }
 }
 
 //
@@ -62,15 +43,10 @@ void drawLattice() {
 }
 
 void drawPendulum() {
-    p1->step();
-    p2->step();
-    p3->step();
-    p4->step();
-
-    p4->display();
-    p3->display();
-    p2->display();
-    p1->display();
+    for (auto pi : p) {
+        pi->step();
+        pi->display();
+    }
 }
 
 void display() {
