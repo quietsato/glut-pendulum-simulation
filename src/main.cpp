@@ -11,6 +11,7 @@
 #endif
 
 std::vector<DoublePendulum *> p;
+bool isEnableLocus = true;
 
 void init() {
     glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -46,8 +47,10 @@ void drawPendulum() {
     for (auto pi : p) {
         pi->step();
     }
-    for (auto pi : p) {
-        pi->displayLocus();
+    if (isEnableLocus) {
+        for (auto pi : p) {
+            pi->displayLocus();
+        }
     }
     for (auto pi : p) {
         pi->displayPendulum();
@@ -80,12 +83,8 @@ void reshape(int width, int height) {
 void idle() { glutPostRedisplay(); }
 
 void mouse(int button, int state, int x, int y) {
-    if (button == GLUT_LEFT_BUTTON) {
-        if (state == GLUT_DOWN) {
-            glutIdleFunc(idle);
-        } else if (state == GLUT_UP) {
-            glutIdleFunc(0);
-        }
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
+        isEnableLocus = !isEnableLocus;
     }
 }
 
