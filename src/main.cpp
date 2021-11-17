@@ -16,14 +16,15 @@ void init() {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_LINE_SMOOTH);
 
-    for (size_t i = 0; i < 10; i++) {
-        auto pi = new DoublePendulum(                    //
-            /* m1 = */ 1.0, /* m2 = */ 0.5,              //
-            /* l1 = */ 0.5, /* l2 = */ 0.25,             //
-            /* theta1 = */ M_PI * 5 / 6 + (i * 0.00001), //
-            /* theta2 = */ M_PI, //
-            /* omega1 = */ 0, /* omega2 = */ 0           //
+    for (size_t i = 1; i < 7; i++) {
+        auto pi = new DoublePendulum(              //
+            /* m1 = */ 1.0, /* m2 = */ 0.1,        //
+            /* l1 = */ 0.5, /* l2 = */ 0.5,        //
+            /* theta1 = */ M_PI + (i * 0.0000001), //
+            /* theta2 = */ M_PI,                   //
+            /* omega1 = */ 0, /* omega2 = */ 0     //
         );
+        pi->setLocusColor((i >> 2) & 1, (i >> 1) & 1, i & 1);
         p.push_back(pi);
     }
 }

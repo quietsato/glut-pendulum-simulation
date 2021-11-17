@@ -50,7 +50,7 @@ void DoublePendulum::recordLocus() {
 void DoublePendulum::displayLocus() {
     if (this->locus.size() < HISTORY_MAX) {
         glBegin(GL_LINES);
-        glColor3d(1, 0, 0);
+        glColor3d(this->lr, this->lg, this->lb);
         for (size_t i = 0; i < this->locus.size() - 1; i++) {
             glVertex2d(this->locus[i].first, this->locus[i].second);
             glVertex2d(this->locus[i + 1].first, this->locus[i + 1].second);
@@ -58,7 +58,7 @@ void DoublePendulum::displayLocus() {
         glEnd();
     } else {
         glBegin(GL_LINES);
-        glColor3d(1, 0, 0);
+        glColor3d(this->lr, this->lg, this->lb);
         for (size_t j = 0; j < HISTORY_MAX - 1; j++) {
             size_t i1 = (this->locusIndex + j) % HISTORY_MAX;
             size_t i2 = (i1 + 1) % HISTORY_MAX;
