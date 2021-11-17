@@ -33,33 +33,52 @@ double omega_dot2(double g, double m1, double m2, double l1, double l2,
 double theta_dot1(double omega1) { return omega1; }
 double theta_dot2(double omega2) { return omega2; }
 
-void DoublePendulum::recordLocus(double x2, double y2) {
+void DoublePendulum::updateCoordinates() {
+    this->x1 = l1 * sin(theta1), y1 = -l1 * cos(theta1);
+    this->x2 = x1 + l2 * sin(theta2), y2 = y1 - l2 * cos(theta2);
+}
+
+void DoublePendulum::recordLocus() {
     if (this->locus.size() < HISTORY_MAX) {
         this->locus.push_back(std::pair<double, double>(x2, y2));
-        if (this->isEnabledLocus) {
-            glBegin(GL_LINES);
-            glColor3d(1, 0, 0);
-            for (size_t i = 0; i < this->locus.size() - 1; i++) {
-                glVertex2d(this->locus[i].first, this->locus[i].second);
-                glVertex2d(this->locus[i + 1].first, this->locus[i + 1].second);
-            }
-            glEnd();
-        }
     } else {
         this->locus[this->locusIndex] = std::pair<double, double>(x2, y2);
-        if (this->isEnabledLocus) {
-            glBegin(GL_LINES);
-            glColor3d(1, 0, 0);
-            for (size_t j = 0; j < HISTORY_MAX - 1; j++) {
-                size_t i1 = (this->locusIndex + j + 1) % HISTORY_MAX;
-                size_t i2 = (i1 + 1) % HISTORY_MAX;
-                glVertex2d(this->locus[i1].first, this->locus[i1].second);
-                glVertex2d(this->locus[i2].first, this->locus[i2].second);
-            }
-            glEnd();
-        }
         this->locusIndex = (this->locusIndex + 1) % HISTORY_MAX;
     }
+}
+
+void DoublePendulum::displayLocus() {
+    if (this->locus.size() < HISTORY_MAX) {
+        glBegin(GL_LINES);
+        glColor3d(1, 0, 0);
+        for (size_t i = 0; i < this->locus.size() - 1; i++) {
+            glVertex2d(this->locus[i].first, this->locus[i].second);
+            glVertex2d(this->locus[i + 1].first, this->locus[i + 1].second);
+        }
+        glEnd();
+    } else {
+        glBegin(GL_LINES);
+        glColor3d(1, 0, 0);
+        for (size_t j = 0; j < HISTORY_MAX - 1; j++) {
+            size_t i1 = (this->locusIndex + j) % HISTORY_MAX;
+            size_t i2 = (i1 + 1) % HISTORY_MAX;
+            glVertex2d(this->locus[i1].first, this->locus[i1].second);
+            glVertex2d(this->locus[i2].first, this->locus[i2].second);
+        }
+        glEnd();
+    }
+}
+
+void DoublePendulum::displayPendulum() {
+    glBegin(GL_LINES);
+    glColor3d(this->pr, this->pg, this->pb);
+
+    glVertex2d(0.0, 0.0);
+    glVertex2d(x1, y1);
+    glVertex2d(x1, y1);
+    glVertex2d(x2, y2);
+
+    glEnd();
 }
 
 DoublePendulum::DoublePendulum(                                //
@@ -74,21 +93,6 @@ DoublePendulum::DoublePendulum(                                //
     this->theta2 = theta2;
     this->omega1 = omega1;
     this->omega2 = omega2;
-}
-
-void DoublePendulum::display() {
-    double x1 = l1 * sin(theta1), y1 = -l1 * cos(theta1);
-    double x2 = x1 + l2 * sin(theta2), y2 = y1 - l2 * cos(theta2);
-
-    glBegin(GL_LINES);
-    glColor3d(this->pr, this->pg, this->pb);
-
-    glVertex2d(0.0, 0.0);
-    glVertex2d(x1, y1);
-    glVertex2d(x1, y1);
-    glVertex2d(x2, y2);
-
-    glEnd();
 }
 
 void DoublePendulum::step() {
@@ -152,4 +156,7 @@ void DoublePendulum::step() {
     omega1 += (k1_omega1 + 2.0 * k2_omega1 + 2.0 * k3_omega1 + k4_omega1) / 6.0;
     theta2 += (k1_theta2 + 2.0 * k2_theta2 + 2.0 * k3_theta2 + k4_theta2) / 6.0;
     omega2 += (k1_omega2 + 2.0 * k2_omega2 + 2.0 * k3_omega2 + k4_omega2) / 6.0;
+
+    this->updateCoordinates();
+    this->recordLocus();
 }

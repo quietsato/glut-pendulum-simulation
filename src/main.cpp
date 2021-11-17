@@ -16,15 +16,14 @@ void init() {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_LINE_SMOOTH);
 
-    for (size_t i = 0; i < 30; i++) {
+    for (size_t i = 0; i < 10; i++) {
         auto pi = new DoublePendulum(                    //
             /* m1 = */ 1.0, /* m2 = */ 0.5,              //
             /* l1 = */ 0.5, /* l2 = */ 0.25,             //
-            /* theta1 = */ M_PI * 2 / 3 + (i * 0.00001), //
-            /* theta2 = */ M_PI * 2 / 3 + (i * 0.00001), //
+            /* theta1 = */ M_PI * 5 / 6 + (i * 0.00001), //
+            /* theta2 = */ M_PI, //
             /* omega1 = */ 0, /* omega2 = */ 0           //
         );
-        pi->setIsEnabledLocus(true);
         p.push_back(pi);
     }
 }
@@ -45,7 +44,12 @@ void drawLattice() {
 void drawPendulum() {
     for (auto pi : p) {
         pi->step();
-        pi->display();
+    }
+    for (auto pi : p) {
+        pi->displayLocus();
+    }
+    for (auto pi : p) {
+        pi->displayPendulum();
     }
 }
 
