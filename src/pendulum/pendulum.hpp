@@ -24,7 +24,9 @@ class DoublePendulum {
     );
     void step();
 
+    void clearLocus();
     void displayLocus();
+
     void displayPendulum();
 
     void setPendulumColor(double r, double g, double b) {

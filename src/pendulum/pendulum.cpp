@@ -38,6 +38,11 @@ void DoublePendulum::updateCoordinates() {
     this->x2 = x1 + l2 * sin(theta2), y2 = y1 - l2 * cos(theta2);
 }
 
+void DoublePendulum::clearLocus() {
+    this->locus.clear();
+    this->locusIndex = 0;
+}
+
 void DoublePendulum::recordLocus() {
     if (this->locus.size() < HISTORY_MAX) {
         this->locus.push_back(std::pair<double, double>(x2, y2));
