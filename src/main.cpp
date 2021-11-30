@@ -85,6 +85,10 @@ void idle() { glutPostRedisplay(); }
 void mouse(int button, int state, int x, int y) {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
         isEnableLocus = !isEnableLocus;
+    } else if (button == GLUT_RIGHT_BUTTON && state == GLUT_UP) {
+        for (auto pi : p) {
+            pi->clearLocus();
+        }
     }
 }
 
