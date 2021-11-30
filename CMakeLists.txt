@@ -8,6 +8,8 @@ add_executable(
     ./src/main.cpp
     ./src/pendulum/pendulum.hpp
     ./src/pendulum/pendulum.cpp
+    ./src/config_loader/config_loader.hpp
+    ./src/config_loader/config_loader.cpp
 )
 
 add_subdirectory(lib/yaml-cpp)
