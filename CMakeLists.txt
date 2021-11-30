@@ -10,6 +10,9 @@ add_executable(
     ./src/pendulum/pendulum.cpp
 )
 
+add_subdirectory(lib/yaml-cpp)
+target_link_libraries(pendulum.out yaml-cpp)
+
 if (APPLE)
     # macOS
     set(CMAKE_CXX_FLAGS "-framework GLUT -framework OpenGL")
