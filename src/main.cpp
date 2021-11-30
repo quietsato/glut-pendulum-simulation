@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 
+#include "config_loader/config_loader.hpp"
 #include "pendulum/pendulum.hpp"
 
 #ifdef __APPLE__
