@@ -1,4 +1,6 @@
-# GLUT Pendulum Simulation
+# GLUT Double Pendulum Simulation
+
+![Sample GIF](./img/sample.gif)
 
 ## Build & Run
 
@@ -6,8 +8,10 @@
 cmake -B build
 cd ./build/
 make
-./pendulum.out
+./pendulum.out /path/to/config.yaml
 ```
+
+Example configuration files are in `example/`.
 
 ## References
 
