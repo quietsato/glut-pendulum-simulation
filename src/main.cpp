@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 
+#include "config_loader/config_loader.hpp"
 #include "pendulum/pendulum.hpp"
 
 #ifdef __APPLE__
@@ -13,19 +14,16 @@
 std::vector<DoublePendulum *> p;
 bool isEnableLocus = true;
 
-void init() {
+void init(std::vector<PendulumConfig> config) {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glEnable(GL_LINE_SMOOTH);
 
-    for (size_t i = 1; i < 7; i++) {
-        auto pi = new DoublePendulum(              //
-            /* m1 = */ 1.0, /* m2 = */ 0.1,        //
-            /* l1 = */ 0.5, /* l2 = */ 0.5,        //
-            /* theta1 = */ M_PI + (i * 0.0000001), //
-            /* theta2 = */ M_PI,                   //
-            /* omega1 = */ 0, /* omega2 = */ 0     //
+    for (PendulumConfig c : config) {
+        auto pi = new DoublePendulum(                                 //
+            c.m1, c.m2, c.l1, c.l2,                                   //
+            c.theta1_deg / 180.0 * M_PI, c.theta2_deg / 180.0 * M_PI, //
+            c.omega1_deg / 180.0 * M_PI, c.omega2_deg / 180.0 * M_PI  //
         );
-        pi->setLocusColor((i >> 2) & 1, (i >> 1) & 1, i & 1);
         p.push_back(pi);
     }
 }
@@ -95,6 +93,12 @@ void mouse(int button, int state, int x, int y) {
 void startupTimeout(int _value) { glutIdleFunc(idle); }
 
 int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        std::cerr << "Please specify a config file path" << std::endl;
+        exit(1);
+    }
+    std::vector<PendulumConfig> config = config_loader::load(argv[1]);
+
     glutInit(&argc, argv);
 
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
@@ -107,7 +111,7 @@ int main(int argc, char *argv[]) {
 
     glutTimerFunc(5000, startupTimeout, 0);
 
-    init();
+    init(config);
 
     glutMainLoop();
 

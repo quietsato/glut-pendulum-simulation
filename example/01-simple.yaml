@@ -1,0 +1,12 @@
+default_pendulum:
+  m1: 1.0
+  m2: 0.5
+  l1: 0.5
+  l2: 0.25
+
+pendulums:
+  - theta1_deg: 150.0
+    theta2_deg: 150.0
+    omega1_deg: 0.0
+    omega2_deg: 0.0
+  

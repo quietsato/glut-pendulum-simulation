@@ -1,0 +1,56 @@
+default_pendulum:
+  m1: 1.0
+  m2: 0.25
+  l1: 0.5
+  l2: 0.5
+
+pendulums:
+  - theta1_deg: 150.000000
+    theta2_deg: 150.000000
+    omega1_deg: 0.0
+    omega2_deg: 0.0
+
+  - theta1_deg: 150.0000001
+    theta2_deg: 150.0000001
+    omega1_deg: 0.0
+    omega2_deg: 0.0
+  
+  - theta1_deg: 150.0000002
+    theta2_deg: 150.0000002
+    omega1_deg: 0.0
+    omega2_deg: 0.0
+
+  - theta1_deg: 150.0000003
+    theta2_deg: 150.0000003
+    omega1_deg: 0.0
+    omega2_deg: 0.0
+
+  - theta1_deg: 150.0000004
+    theta2_deg: 150.0000004
+    omega1_deg: 0.0
+    omega2_deg: 0.0
+
+  - theta1_deg: 150.0000005
+    theta2_deg: 150.0000005
+    omega1_deg: 0.0
+    omega2_deg: 0.0
+
+  - theta1_deg: 150.0000006
+    theta2_deg: 150.0000006
+    omega1_deg: 0.0
+    omega2_deg: 0.0
+
+  - theta1_deg: 150.0000007
+    theta2_deg: 150.0000007
+    omega1_deg: 0.0
+    omega2_deg: 0.0
+
+  - theta1_deg: 150.0000008
+    theta2_deg: 150.0000008
+    omega1_deg: 0.0
+    omega2_deg: 0.0
+
+  - theta1_deg: 150.0000009
+    theta2_deg: 150.0000009
+    omega1_deg: 0.0
+    omega2_deg: 0.0
